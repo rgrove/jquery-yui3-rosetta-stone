@@ -59,10 +59,10 @@ YUI().use('<i>node</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
         <p>The <code>jQuery</code> and <code>$</code> objects are globals and the jQuery library itself is statically loaded, so they are available immediately.</p>
 
         <p>
-          YUI3 is sandboxed and by default dynamically loaded. The
+          YUI is sandboxed and by default dynamically loaded. The
           <code>Y</code> object is local to the function you pass as the last
           argument to <code>YUI().use()</code>. Usually you will put all code
-          that uses YUI3 inside one of these functions. This function executes
+          that uses YUI inside one of these functions. This function executes
           <b>after</b> all the referenced modules are loaded and accounted for.
         </p>
 
@@ -97,7 +97,7 @@ YUI().use('<i>node</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
         <pre class="code yui">Y.one('div.foo')</pre>
       </td>
       <td class="notes">
-        <p>jQuery and YUI3 use similar selector syntax, but jQuery has added extensions, mainly convenience pseudo-classes, to the Sizzle CSS3-compliant selector engine. YUI3 comes with three different selector engines; see the section on <a href="#selectors">Selectors</a>.
+        <p>jQuery and YUI use similar selector syntax, but jQuery has added extensions, mainly convenience pseudo-classes, to the Sizzle CSS3-compliant selector engine. YUI comes with three different selector engines; see the section on <a href="#selectors">Selectors</a>.
       </td>
     </tr>
 
@@ -294,6 +294,18 @@ if (foo.size()) {
 
     <tr>
       <td class="code">
+        <pre class="code jq">$('#foo').trigger('click');</pre>
+      </td>
+      <td class="code">
+        <pre class="code yui">Y.one("#foo").simulate("click")</pre>
+      </td>
+      <td class="notes">
+        <p>Simulates a click event.  In YUI, you'll need the <i>node-event-simulate</i> module.<p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
         <pre class="code jq"><i>parent</i>.append('&lt;div/&gt;')</pre>
       </td>
       <td class="code">
@@ -376,12 +388,12 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
       </td>
       <td class="notes">
         <p>
-          In addition to an optional selector string, YUI3 also supports passing
+          In addition to an optional selector string, YUI also supports passing
           a function to filter the returned siblings.
         <p>
       </td>
     </tr>
-
+    
     <tr>
       <td class="code">
 <pre class="code jq">
@@ -393,9 +405,20 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
 <pre class="code yui">
 .show()
 .hide()
+</pre>
+      </td>
+      <td class="notes">Make DOM nodes appear/disappear</td>
+    </tr>
 
-<i>// If the transition module is loaded, a fade transition
-// will be used when true is passed.</i>
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.fadeIn()
+.faceOut()
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
 .show(<i>true</i>)
 .hide(<i>true</i>)
 </pre>
@@ -404,6 +427,33 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
         <p>In YUI, <code>.show()</code> and <code>.hide()</code> can be customized to use transitions supported by the <code>transition</code> module. These methods were added to YUI in 3.3.0.<p>
       </td>
     </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.parseJSON( '{"name":"Douglas"}' )
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.JSON.parse( '{"name":"Douglas"}' )
+</pre>
+      </td>
+      <td class="notes"><p>Converts a JSON string into an object.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq"></pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.JSON.stringify({name: "Douglas"});
+</pre>
+      </td>
+      <td class="notes"><p>Converts an object to a JSON string. No jQuery equivalent.</p></td></p></td>
+    </tr>
+    
   </tbody>
 </table>
 
@@ -422,17 +472,17 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
     <tr>
       <td class="code"><pre class="code jq">$('*')</pre></td>
       <td class="code"><pre class="code yui">Y.all('*')</pre></td>
-      <td class="notes"><p>Select all nodes. Note that the default selector engine for YUI3 is CSS 2.1. For all examples in this section, use the <code>selector-css3</code> module for YUI.</p></td>
+      <td class="notes"><p>Select all nodes. Note that the default selector engine for YUI is CSS 2.1. For all examples in this section, use the <code>selector-css3</code> module for YUI.</p></td>
     </tr>
     <tr>
       <td class="code"><pre class="code jq">$(':animated')</pre></td>
       <td class="code"><pre class="code yui"></pre></td>
-      <td class="notes"><p>Psuedoclass to select all elements currently being animated. No YUI3 equivalent. </p></td>
+      <td class="notes"><p>Psuedoclass to select all elements currently being animated. No YUI equivalent. </p></td>
     </tr>
     <tr>
       <td class="code"><pre class="code jq">$(':button')</pre></td>
       <td class="code"><pre class="code yui">Y.all('input[type=button], button')</pre></td>
-      <td class="notes"><p>Extension. In both jQuery and YUI3 you can run multiple selectors separated by commas.</p></td>
+      <td class="notes"><p>Extension. In both jQuery and YUI you can run multiple selectors separated by commas.</p></td>
     </tr>
     <tr>
       <td class="code"><pre class="code jq">$(':checkbox')</pre></td>
@@ -463,7 +513,7 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
     <tr>
       <td class="code"><pre class="code jq">$(":contains('<i>foo</i>')")</pre></td>
       <td class="code"><pre class="code yui">Y.all(':contains(<i>foo</i>)')</pre></td>
-      <td class="notes"><p>Extension to select all elements whose text matches 'foo'. jQuery can take quotes or not. YUI3 requires no quotes. The text matching is plain string comparison, not glob or regexp. Be careful with this one as it will return all matching ancestors, eg <code>[html, body, div]</code>.</p></td>
+      <td class="notes"><p>Extension to select all elements whose text matches 'foo'. jQuery can take quotes or not. YUI requires no quotes. The text matching is plain string comparison, not glob or regexp. Be careful with this one as it will return all matching ancestors, eg <code>[html, body, div]</code>.</p></td>
     </tr>
 
     <tr>
@@ -512,7 +562,7 @@ Y.all('div').even()
 Y.all('div').odd()
 </pre>
       </td>
-      <td class="notes"><p>Extension. Selects all even or odd elements. Note that elements are 0-indexed and the 0th element is considered even. See also YUI3's <code>NodeList.modulus(n, offset)</code>.</p></td>
+      <td class="notes"><p>Extension. Selects all even or odd elements. Note that elements are 0-indexed and the 0th element is considered even. See also YUI's <code>NodeList.modulus(n, offset)</code>.</p></td>
     </tr>
 
     <tr>
@@ -593,7 +643,7 @@ hidden = Y.all(hidden);
       </td>
       <td class="notes">
         <p>Extension. In jQuery > 1.3.2 <code>:hidden</code> selects all elements (or descendents of elements) which <a href="http://docs.jquery.com/Release:jQuery_1.3.2#:visible.2F:hidden_Overhauled">take up no visual space</a>. Elements with <code>display:none</code> or whose <code>offsetWidth/offsetHeight</code> equal 0 are considered hidden. Elements with <code>visibility:hidden</code> are not considered hidden.</p>
-        <p>The YUI3 equivalent would essentially be a port of the jQuery code that implements <code>:hidden</code>. This might be a good candidate for a patch to YUI3.</p>
+        <p>The YUI equivalent would essentially be a port of the jQuery code that implements <code>:hidden</code>. This might be a good candidate for a patch to YUI.</p>
       </td>
     </tr>
 
@@ -734,7 +784,7 @@ a.run();
       </td>
       <td class="notes">
         <p>The basic syntax and capabilities of both animation libraries are very similar. jQuery has convenience methods for effects like <code>.fadeIn()</code>, <code>.slideUp()</code>, etc. jQuery core has two easing functions: 'linear' and 'swing', but jQuery UI comes with <a href="http://jqueryui.com/demos/effect/">many more effects</a> as plugins.</p>
-        <p>YUI3 has several <a href="http://developer.yahoo.com/yui/3/api/Easing.html">easing algorithms</a> built-in, and offers additional tools such as <a href="http://developer.yahoo.com/yui/3/examples/anim/curve.html">animations over Bezier curves</a>. Make sure to load the <code>'anim'</code> module in your call to <code>YUI().use()</code>.</p>
+        <p>YUI has several <a href="http://developer.yahoo.com/yui/3/api/Easing.html">easing algorithms</a> built-in, and offers additional tools such as <a href="http://developer.yahoo.com/yui/3/examples/anim/curve.html">animations over Bezier curves</a>. Make sure to load the <code>'anim'</code> module in your call to <code>YUI().use()</code>.</p>
       </td>
     </tr>
 
@@ -848,7 +898,7 @@ Y.all('<i>.foo</i>').each(
 filtered = Y.all(filtered);
 </pre>
       </td>
-      <td class="notes"><p>Classic functional programming filter function. Given a list of elements, run the function on each and return a list of those which evaluated true. <code>NodeList.filter(fn)</code> is coming to a future point release of YUI3.</p></td>
+      <td class="notes"><p>Classic functional programming filter function. Given a list of elements, run the function on each and return a list of those which evaluated true. <code>NodeList.filter(fn)</code> is coming to a future point release of YUI.</p></td>
     </tr>
 
     <tr>
@@ -875,7 +925,7 @@ mapped = Y.all(mapped);
 </pre>
       </td>
       <td class="notes">
-        <p>jQuery's <code>.map()</code> returns a jQuery-wrapped array of the return values of calls to the given function. <code>get()</code> returns a true array. <code>NodeList.map(fn)</code> is coming to a future point release of YUI3.</p>
+        <p>jQuery's <code>.map()</code> returns a jQuery-wrapped array of the return values of calls to the given function. <code>get()</code> returns a true array. <code>NodeList.map(fn)</code> is coming to a future point release of YUI.</p>
       </td>
     </tr>
   </tbody>

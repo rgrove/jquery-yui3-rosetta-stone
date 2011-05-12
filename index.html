@@ -248,6 +248,22 @@ if (foo.size()) {
     <tr>
       <td class="code">
 <pre class="code jq">
+.trim('<i> foo </i>');
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.Lang.trim('<i> foo </i>');
+</pre>
+      </td>
+      <td class="notes">
+        <p>Stripping leading and trailing whitespace.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
 .click(<i>fn</i>)
 .focus(<i>fn</i>)
 .blur(<i>fn</i>)

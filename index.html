@@ -16,6 +16,7 @@
 <ul class="toc">
   <li><a href="#start">Getting Started</a></li>
   <li><a href="#common">Common Idioms</a></li>
+  <li><a href="#events">Events</a></li>
   <li><a href="#selectors">Selectors</a></li>
   <li><a href="#effects">Animations &amp; Effects</a></li>
   <li>
@@ -247,65 +248,6 @@ if (foo.size()) {
 
     <tr>
       <td class="code">
-<pre class="code jq">
-.click(<i>fn</i>)
-.focus(<i>fn</i>)
-.blur(<i>fn</i>)
-.mouseout(<i>fn</i>)
-.mouseover(<i>fn</i>)
-
-<i>// jQuery 1.4.2 and later allows you to
-// register events when creating the element
-</i>$('&lt;p/&gt;',{
-  text      :<i>'foo'</i>, 
-  className : <i>'bar'</i>,
-  click     : <i>fn</i>,
-  focus     : <i>fn</i>,
-  blur      : <i>fn</i>
-})
-</pre>
-      </td>
-      <td class="code">
-<pre class="code yui">
-.on('click', <i>fn</i>)
-.on('focus', <i>fn</i>)
-.on('blur', <i>fn</i>)
-.on('mouseout', <i>fn</i>)
-.on('mouseover', <i>fn</i>)
-
-<i>// Alternatively, YUI allows you to attach multiple
-// subscribers with a single call.</i>
-.on({
-  click    : <i>fn</i>,
-  focus    : <i>fn</i>,
-  blur     : <i>fn</i>,
-  mouseout : <i>fn</i>,
-  mouseover: <i>fn</i>
-})
-
-<i>// Or attach a single subscriber to multiple events.</i>
-.on(['click', 'focus', 'blur', 'mouseout', 'mouseover'], <i>fn</i>)
-</pre>
-      </td>
-      <td class="notes">
-        <p><code>.on()</code> is not chainable by default, but multiple subscribers can be attached in one call using the syntax shown here.</p>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="code">
-        <pre class="code jq">$('#foo').trigger('click');</pre>
-      </td>
-      <td class="code">
-        <pre class="code yui">Y.one("#foo").simulate("click")</pre>
-      </td>
-      <td class="notes">
-        <p>Simulates a click event.  In YUI, you'll need the <i>node-event-simulate</i> module.<p>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="code">
         <pre class="code jq"><i>parent</i>.append('&lt;div/&gt;')</pre>
       </td>
       <td class="code">
@@ -456,6 +398,118 @@ Y.JSON.stringify({name: "Douglas"});
     
   </tbody>
 </table>
+
+<h2 id="events">Events</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="jq">jQuery 1.4.2</th>
+      <th class="yui">YUI 3.3.0</th>
+      <th class="notes">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$("#foo").click(<i>fn</i>)
+$("#foo").focus(<i>fn</i>)
+$("#foo").blur(<i>fn</i>)
+$("#foo").mouseout(<i>fn</i>).mouseover(<i>fn</i>)
+
+<i>// jQuery 1.4.2 and later allows you to
+// register events when creating the element
+</i>$('&lt;p/&gt;',{
+  text      :<i>'foo'</i>, 
+  className : <i>'bar'</i>,
+  click     : <i>fn</i>,
+  focus     : <i>fn</i>,
+  blur      : <i>fn</i>
+})
+
+<i>//Alternatively, you can use the bind() method</i>
+$('#foo').bind('click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one("#foo").on('click', <i>fn</i>)
+Y.one("#foo").on('focus', <i>fn</i>)
+Y.one("#foo").on('blur', <i>fn</i>)
+Y.one("#foo").on('mouseout', <i>fn</i>)
+Y.one("#foo").on('mouseover', <i>fn</i>)
+
+<i>// Alternatively, YUI allows you to attach multiple
+// subscribers with a single call.</i>
+Y.one("#foo").on({
+  click    : <i>fn</i>,
+  focus    : <i>fn</i>,
+  blur     : <i>fn</i>,
+  mouseout : <i>fn</i>,
+  mouseover: <i>fn</i>
+})
+
+<i>// Or attach a single subscriber to multiple events.</i>
+Y.one("#foo").on(['click', 'focus', 'blur', <i>fn</i>)
+</pre>
+      </td>
+      <td class="notes">
+        <p>In YUI, <code>.on()</code> is not chainable by default, but multiple subscribers can be attached in one call using the syntax shown here.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#container').delegate('#target', 'click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one("#container").delegate('click', <i>fn</i>, '#target');
+</pre>
+      </td>
+      <td class="notes">
+        <p>Event listener will bind to #container and only fire the callback <i>fn</i> when a event's target is #target (or any other selector)</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#target').live('click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one(document).delegate('click', <i>fn</i>, '#target');
+</pre>
+      </td>
+      <td class="notes">
+        <p>jQuery's delegate() is generally preferred over live() because of performance as well as chaining limitations (<a href="http://www.alfajango.com/blog/the-difference-between-jquerys-bind-live-and-delegate/">source</a>).</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#foo').trigger('click');
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one("#foo").simulate("click")
+</pre>
+      </td>
+      <td class="notes">
+        <p>Simulates a <em>click</em> event. In YUI, you'll need the <i>node-event-simulate</i> module.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 
 <h2 id="selectors">Selectors</h2>
 

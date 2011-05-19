@@ -1062,6 +1062,55 @@ Y.one('<i>#message</i>').load('<i>/ajax/test.html</i>', '<i>#foo</i>');
         <p>In YUI, the <code>node-load</code> module provides this functionality. YUI also optionally supports extracting only a portion of the loaded content if a selector string is passed as the second argument (assuming the content is HTML).
       </td>
     </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.getJSON(<i>url</i>, <i>successFn</i>);  
+</pre>
+</td>
+      <td class="code">
+<pre class="code yui">
+Y.io(<i>url</i>, {
+    on:   {success: <i>successFn</i>}
+});
+</pre>
+      </td>
+      <td class="notes">
+        <p>A remote request for a JSON file.  There is no convenience method for this in YUI.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.getJSON(
+  "/some/jsonpURL.json?callback=?", 
+  <i>successFn</i>
+);
+</pre>
+</td>
+      <td class="code">
+<pre class="code yui">
+<i>// Manually specify callback function name</i>
+<i>// (module: jsonp)</i>
+Y.jsonp(
+  "/some/jsonpURL.json?callback={callbackFunc}", 
+  <i>successFn</i>
+);
+
+<i>// Automatically generate callback function name</i>
+<i>// (module: jsonp-url)</i>
+Y.jsonp(
+  "/some/jsonpURL.json", 
+  <i>successFn</i>
+);
+</pre>
+      </td>
+      <td class="notes">
+        <p>JSONP requests.  Be aware of automatically generated callback function names as their unique names prevent caching.</p>
+      </td>
+    </tr>
   </tbody>
 </table>
 

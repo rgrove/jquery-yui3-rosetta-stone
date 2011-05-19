@@ -34,45 +34,57 @@
 </ul>
 
 <h2 id="start">Getting Started</h2>
-
 <table>
   <thead>
     <tr>
       <th class="jq">jQuery 1.4.2</th>
       <th class="yui">YUI 3.3.0</th>
-      <th class="notes">Notes</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
       <td class="code">
-        <pre class="code jq">$<i>.foo.bar()</i></pre>
+<pre class="code jq">
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://somedomain.com/path/to/plugin.js"&gt;&lt;/script&gt;
+&lt;script src="https://somedomain.com/path/to/anotherplugin.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  $(document).ready(function() {
+    // Do stuff with the $ object here
+    $<i>.foo.bar()</i>
+  });
+&lt;/script&gt;
+</pre>
+        <p><strong>Loading Method</strong>: Statically loaded (by default).</p>
+        <p><strong>Scope</strong>: The <code>jQuery</code>/<code>$</code> objects are global.</p>
+        <p><strong>Plugins</strong>: To go beyond base library functionality, jQuery has the concept of "plugins" which are loaded in via additional <code>&lt;script&gt;</code> tags, or a dynamic loader.  All examples on this page use core library methods (no plugins).<p>
       </td>
       <td class="code">
 <pre class="code yui">
-YUI().use('<i>node</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
-  Y<i>.foo.bar()</i>
-});
+&lt;script src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js"&gt;&lt;/script&gt;
+
+
+
+&lt;script&gt;
+  YUI().use('<i>module1</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
+    // Do stuff with the Y object here
+    Y<i>.foo.bar()</i>
+  });
+&lt;/script&gt;
 </pre>
-      </td>
-      <td class="notes">
-        <p>The <code>jQuery</code> and <code>$</code> objects are globals and the jQuery library itself is statically loaded, so they are available immediately.</p>
 
-        <p>
-          YUI is sandboxed and by default dynamically loaded. The
-          <code>Y</code> object is local to the function you pass as the last
-          argument to <code>YUI().use()</code>. Usually you will put all code
-          that uses YUI inside one of these functions. This function executes
-          <b>after</b> all the referenced modules are loaded and accounted for.
-        </p>
+<p><strong>Loading Method</strong>: Dynamically loaded (by default).</p>
 
-        <p>
-          The return value of <code>YUI().use()</code> is also a Y object, which
-          you can assign to a global variable [e.g.
-          <code class="nowrap">var Y = YUI().use(&hellip;);</code>] and debug
-          with it in a JavaScript console.
-        </p>
+<p><strong>Scope</strong>: The <code>YUI</code> loader object is global, and the <code>Y</code> object is local to each "sandbox" (your callback function). However, the return value of <code>YUI().use()</code> is a <code>Y</code> object, which you can assign to a global variable [e.g. <code class="nowrap">var Y = YUI().use(&hellip;);</code>].</p>
+
+<p><strong>Modules</strong>: Functionality in the YUI library is provided by "modules", which are split between <a href="http://developer.yahoo.com/yui/3/">core</a> (officially supported) and <a href="http://yuilibrary.com/gallery/show">gallery</a> (user contributed). Simply adding <code>YUI.use(function(Y){});</code> doesn't get you much, so you will need to specify which modules you wish to use and the loader will fetch them for you.  The following core modules should provide you all the functionality for the examples in this document: </p>
+<pre>
+  YUI().use('node', 'io', 'event', 'animation', function (Y) {
+    // example code here
+  });
+</pre>
       </td>
     </tr>
   </tbody>

@@ -1077,7 +1077,8 @@ Y.io(<i>url</i>, {
 </pre>
       </td>
       <td class="notes">
-        <p>A remote request for a JSON file.  There is no convenience method for this in YUI.</p>
+        <p>A remote request for a JSON file. Same-origin policy is enforced.</p>
+        <p>There is no convenience method for this in YUI.</p>
       </td>
     </tr>
 
@@ -1092,23 +1093,15 @@ $.getJSON(
 </td>
       <td class="code">
 <pre class="code yui">
-<i>// Manually specify callback function name</i>
 <i>// (module: jsonp)</i>
 Y.jsonp(
-  "/some/jsonpURL.json?callback={callbackFunc}", 
-  <i>successFn</i>
-);
-
-<i>// Automatically generate callback function name</i>
-<i>// (module: jsonp-url)</i>
-Y.jsonp(
-  "/some/jsonpURL.json", 
+  "/some/jsonpURL.json?callback={callback}", 
   <i>successFn</i>
 );
 </pre>
       </td>
       <td class="notes">
-        <p>JSONP requests.  Be aware of automatically generated callback function names as their unique names prevent caching.</p>
+        <p>JSONP requests. Same-origin policy is not enforced.</p>
       </td>
     </tr>
   </tbody>

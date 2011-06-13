@@ -248,7 +248,7 @@ if (foo.size()) {
     <tr>
       <td class="code">
 <pre class="code jq">
-.trim('<i> foo </i>');
+$.trim('<i> foo </i>');
 </pre>
       </td>
       <td class="code">
@@ -413,6 +413,105 @@ Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
     <tr>
       <td class="code">
 <pre class="code jq">
+.next()
+.next(<i>selector</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.next()
+.next(<i>selector</i>)
+.next(<i>fn</i>)
+</pre>
+      </td>
+      <td class="notes">
+        <p>
+          Same considerations as <code>.siblings()</code>.
+        <p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.prev()
+.prev(<i>selector</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.previous()
+.previous(<i>selector</i>)
+.previous(<i>fn</i>)
+</pre>
+      </td>
+      <td class="notes">
+        <p>
+          Same considerations as <code>.siblings()</code>.
+        <p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.parent()
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.get('parentNode')
+</pre>
+      </td>
+      <td class="notes"><p>Returns the parent node of the given node.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.children()
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.get('children')
+</pre>
+      </td>
+      <td class="notes"><p>Returns all the element children of the given node.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.closest(<i>selector</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.ancestor(<i>selector</i>)
+.ancestor(<i>fn</i>)
+</pre>
+      </td>
+      <td class="notes"><p>Returns the first ancestor that matches the given selector. In addition, YUI supports using a function instead of a selector to find an ancestor.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.contains(<i>node</i>, <i>descendant</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.contains(<i>descendant</i>)
+</pre>
+      </td>
+      <td class="notes"><p>Check to see if a node contains a certain descendant.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
 .show()
 .hide()
 </pre>
@@ -468,6 +567,51 @@ Y.JSON.stringify({name: "Douglas"});
 </pre>
       </td>
       <td class="notes"><p>Converts an object to a JSON string. No jQuery equivalent.</p></td></p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">$.proxy(<i>fn</i>, <i>context</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.bind(<i>fn</i>, <i>context</i>)
+</pre>
+      </td>
+      <td class="notes"><p>Creates a new function that will call the supplied function in a particular context.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.data(<i>key</i>)
+.data(<i>key</i>, <i>value</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.getData(<i>key</i>)
+.setData(<i>key</i>, <i>value</i>)
+</pre>
+      </td>
+      <td class="notes"><p>Stores data associated to a DOM element without modifying the DOM.</p></td>
+    </tr>
+    
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.removeData()
+.removeData(<i>key</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.clearData()
+.clearData(<i>key</i>)
+</pre>
+      </td>
+      <td class="notes"><p>Removes the associated data.</p></td>
     </tr>
     
   </tbody>
@@ -922,9 +1066,9 @@ filtered = Y.all(filtered);
 <pre class="code jq">
 $('<i>.foo</i>').map(
   function(idx, el) {
-    some_function(el);
+    return some_function(el);
   }
-).get();
+)
 </pre>
 </td>
       <td class="code">
@@ -933,7 +1077,7 @@ var mapped = [];
 Y.all('<i>.foo</i>').each(
   function(node) {
     mapped.push(
-        some_function(node)
+      return some_function(node)
     );
   }
 );
@@ -941,7 +1085,7 @@ mapped = Y.all(mapped);
 </pre>
       </td>
       <td class="notes">
-        <p>jQuery's <code>.map()</code> returns a jQuery-wrapped array of the return values of calls to the given function. <code>get()</code> returns a true array. <code>NodeList.map(fn)</code> is coming to a future point release of YUI.</p>
+        <p>jQuery's <code>.map()</code> returns a jQuery-wrapped array of the return values of calls to the given function. <code>NodeList.map(fn)</code> is coming to a future point release of YUI.</p>
       </td>
     </tr>
   </tbody>

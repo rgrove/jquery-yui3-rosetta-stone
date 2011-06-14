@@ -1296,6 +1296,129 @@ Y.one('<i>#message</i>').load('<i>/ajax/test.html</i>', '<i>#foo</i>');
   </tbody>
 </table>
 
+<h2 id="sectionid">Language Utilities</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th class="jq">jQuery 1.4.2</th>
+      <th class="yui">YUI 3.3.0</th>
+      <th class="notes">Notes</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.each([1, 2, 3], <i>fn(index, value)</i>)
+$.each({ key: value }, <i>fn(key, value)</i>)
+</pre></td>
+      <td class="code">
+<pre class="code yui">
+Y.Array.each([1, 2, 3], <i>fn(value, index)</i>)
+Y.Object.each({ key: value }, <i>fn(key, value)</i>)
+</pre></td>
+      <td class="notes">
+        <p>
+        	Iterate through an array or object. YUI is compatible with the Array <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> method so the first parameter the callback receives when iterating through an array is the value. In jQuery, the first parameter is the index of the value in the array.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code"><pre class="code jq">$.inArray(<i>value</i>, <i>array</i>)</pre></td>
+      <td class="code"><pre class="code yui">Y.Array.indexOf(<i>value</i>, <i>array</i>)</pre></td>
+      <td class="notes">
+        <p>
+        	Returns the index of the searched value in the specified array.
+        </p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="code"><pre class="code jq">$.type(<i>obj</i>)</pre></td>
+      <td class="code"><pre class="code yui">Y.Lang.type(<i>obj</i>)</pre></td>
+      <td class="notes">
+        <p>
+        	Returns a string representing the type of the specified object. YUI and jQuery results are compatible (see <a href="http://api.jquery.com/jQuery.type/">jQuery's</a>).
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code"><pre class="code jq">$.isPlainObject(<i>obj</i>)</pre></td>
+      <td class="code">
+<pre class="code yui">
+Y.Lang.isObject(<i>obj</i>)
+Y.Lang.isObject(<i>obj</i>, <i>true</i>)
+</pre></td>
+      <td class="notes">
+        <p>
+        	In YUI, <code>Y.Lang.isObject</code> returns true for arrays and functions. Passing true as a second parameter makes it return false if the input is a function.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.isArray(<i>obj</i>)
+$.isFunction(<i>obj</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.Lang.isArray(<i>obj</i>)
+Y.Lang.isFunction(<i>obj</i>)
+Y.Lang.isString(<i>obj</i>)
+Y.Lang.isBoolean(<i>obj</i>)
+Y.Lang.isDate(<i>obj</i>)
+Y.Lang.isNumber(<i>obj</i>)
+Y.Lang.isNull(<i>obj</i>)
+Y.Lang.isUndefined(<i>obj</i>)
+Y.Lang.isValue(<i>obj</i>)
+</pre>
+      </td>
+      <td class="notes">
+        <p>
+        	YUI also has some extra type checking functions. In particular, <code>Y.Lang.isValue()</code> returns false if the object is null, undefined or not a number, and true in any other case.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code"><pre class="code jq">$.isEmptyObject(<i>obj</i>)</pre></td>
+      <td class="code"><pre class="code yui">Y.Object.isEmpty(<i>obj</i>)</pre></td>
+      <td class="notes">
+        <p>
+        	Check if the given object doesn't have any properties.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code"><pre class="code jq">$.makeArray(<i>obj</i>)</pre></td>
+      <td class="code"><pre class="code yui">Y.Array(<i>obj</i>)</pre></td>
+      <td class="notes">
+        <p>
+        	Make an array-like object, for instance the return value of <code>document.getElementsByTagName</code>, into a true array.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code"><pre class="code jq">$.now()</pre></td>
+      <td class="code"><pre class="code yui">Y.Lang.now()</pre></td>
+      <td class="notes">
+        <p>
+        	Return the current time in milliseconds.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <!-- A template for your copying-and-pasting pleasure: -->
 <!--
 <h2 id="sectionid">Section Name</h2>

@@ -1277,8 +1277,8 @@ Y.one('<i>#message</i>').load('<i>/ajax/test.html</i>', '<i>#foo</i>');
     <tr>
       <td class="code">
 <pre class="code jq">
-.position()
-<i>// {left: 123, top: 456}</i>
+.offset()
+<i>// {left: 123, top: 456, width: 789, height: 1011}</i>
 </pre>
       </td>
       <td class="code">
@@ -1288,9 +1288,23 @@ Y.one('<i>#message</i>').load('<i>/ajax/test.html</i>', '<i>#foo</i>');
 </pre>
       </td>
       <td class="notes">
-        <p>Get the computed x,y coordinates.</p>
+        <p>Get the computed x,y coordinates relative to the document. jQuery also returns the size of the node</p>
+      </td>
+    </tr>
 
-        <p>In jQuery, the coordinates are relative to the nearest ancestor element that is relatively or absolutely positioned. In YUI, they're relative to the document.</p>
+    <tr>
+      <td class="code">
+<pre class="code jq">
+.offset(<i>{ left: 123, top: 456 }</i>)
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.setXY(123, 456)
+</pre>
+      </td>
+      <td class="notes">
+        <p>Set the x,y coordinates relative to the document.</p>
       </td>
     </tr>
   </tbody>

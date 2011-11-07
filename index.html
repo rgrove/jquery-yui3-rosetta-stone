@@ -298,9 +298,9 @@ $('&lt;p&gt;foo&lt;p&gt;')
       <td class="code">
 <pre class="code yui">
 <i>parent</i> = Y.Node.create('&lt;div/&gt;');
-Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
+Y.Node.create('&lt;p&gt;foo&lt;/p&gt;')
   .appendTo(<i>parent</i>)
-  .on(&#x27;click&#x27;, <i>fn</i>);
+  .on('click', <i>fn</i>);
 </pre>
       </td>
       <td class="notes">
@@ -424,10 +424,10 @@ Y.JSON.stringify({name: "Douglas"});
     <tr>
       <td class="code">
 <pre class="code jq">
-$("#foo").click(<i>fn</i>)
-$("#foo").focus(<i>fn</i>)
-$("#foo").blur(<i>fn</i>)
-$("#foo").mouseout(<i>fn</i>).mouseover(<i>fn</i>)
+$('#foo').click(<i>fn</i>)
+$('#foo').focus(<i>fn</i>)
+$('#foo').blur(<i>fn</i>)
+$('#foo').mouseout(<i>fn</i>).mouseover(<i>fn</i>)
 
 <i>// jQuery 1.4.2 and later allows you to
 // register events when creating the element
@@ -445,15 +445,15 @@ $('#foo').bind('click', <i>fn</i>);
       </td>
       <td class="code">
 <pre class="code yui">
-Y.one("#foo").on('click', <i>fn</i>)
-Y.one("#foo").on('focus', <i>fn</i>)
-Y.one("#foo").on('blur', <i>fn</i>)
-Y.one("#foo").on('mouseout', <i>fn</i>)
-Y.one("#foo").on('mouseover', <i>fn</i>)
+Y.one('#foo').on('click', <i>fn</i>)
+Y.one('#foo').on('focus', <i>fn</i>)
+Y.one('#foo').on('blur', <i>fn</i>)
+Y.one('#foo').on('mouseout', <i>fn</i>)
+Y.one('#foo').on('mouseover', <i>fn</i>)
 
 <i>// Alternatively, YUI allows you to attach multiple
 // subscribers with a single call.</i>
-Y.one("#foo").on({
+Y.one('#foo').on({
   click    : <i>fn</i>,
   focus    : <i>fn</i>,
   blur     : <i>fn</i>,
@@ -462,7 +462,7 @@ Y.one("#foo").on({
 })
 
 <i>// Or attach a single subscriber to multiple events.</i>
-Y.one("#foo").on(['click', 'focus', 'blur', <i>fn</i>)
+Y.one('#foo').on(['click', 'focus', 'blur'], <i>fn</i>)
 </pre>
       </td>
       <td class="notes">
@@ -478,7 +478,7 @@ $('#container').delegate('#target', 'click', <i>fn</i>);
       </td>
       <td class="code">
 <pre class="code yui">
-Y.one("#container").delegate('click', <i>fn</i>, '#target');
+Y.one('#container').delegate('click', <i>fn</i>, '#target');
 </pre>
       </td>
       <td class="notes">
@@ -494,7 +494,7 @@ $('#target').live('click', <i>fn</i>);
       </td>
       <td class="code">
 <pre class="code yui">
-Y.one(document).delegate('click', <i>fn</i>, '#target');
+Y.one(Y.config.doc).delegate('click', <i>fn</i>, '#target');
 </pre>
       </td>
       <td class="notes">
@@ -510,7 +510,7 @@ $('#foo').trigger('click');
       </td>
       <td class="code">
 <pre class="code yui">
-Y.one("#foo").simulate("click")
+Y.one('#foo').simulate('click')
 </pre>
       </td>
       <td class="notes">

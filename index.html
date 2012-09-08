@@ -16,6 +16,7 @@
 <ul class="toc">
   <li><a href="#start">Getting Started</a></li>
   <li><a href="#common">Common Idioms</a></li>
+  <li><a href="#events">Events</a></li>
   <li><a href="#selectors">Selectors</a></li>
   <li><a href="#effects">Animations &amp; Effects</a></li>
   <li>
@@ -33,45 +34,59 @@
 </ul>
 
 <h2 id="start">Getting Started</h2>
-
 <table>
   <thead>
     <tr>
       <th class="jq">jQuery 1.4.2</th>
       <th class="yui">YUI 3.5.0</th>
-      <th class="notes">Notes</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
       <td class="code">
-        <pre class="code jq">$<i>.foo.bar()</i></pre>
+<pre class="code jq">
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://somedomain.com/path/to/plugin.js"&gt;&lt;/script&gt;
+&lt;script src="https://somedomain.com/path/to/anotherplugin.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  $(document).ready(function() {
+    // Do stuff with the $ object here
+    $<i>.foo.bar()</i>
+  });
+&lt;/script&gt;
+</pre>
+        <p><strong>Loading Method</strong>: Statically loaded (by default).</p>
+        <p><strong>Scope</strong>: The <code>jQuery</code>/<code>$</code> objects are global.</p>
+        <p><strong>Plugins</strong>: To go beyond base library functionality, jQuery has the concept of "plugins" which are loaded in via additional <code>&lt;script&gt;</code> tags, or a dynamic loader.  All examples on this page use core library methods (no plugins).<p>
       </td>
       <td class="code">
 <pre class="code yui">
-YUI().use('<i>node</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
-  Y<i>.foo.bar()</i>
-});
+&lt;script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"&gt;&lt;/script&gt;
+
+
+
+&lt;script&gt;
+  YUI().use('<i>module1</i>', '<i>module2</i>', '<i>module3</i>', function (Y) {
+    // Do stuff with the Y object here
+    Y<i>.foo.bar()</i>
+  });
+&lt;/script&gt;
 </pre>
-      </td>
-      <td class="notes">
-        <p>The <code>jQuery</code> and <code>$</code> objects are globals and the jQuery library itself is statically loaded, so they are available immediately.</p>
 
-        <p>
-          YUI is sandboxed and by default dynamically loaded. The
-          <code>Y</code> object is local to the function you pass as the last
-          argument to <code>YUI().use()</code>. Usually you will put all code
-          that uses YUI inside one of these functions. This function executes
-          <b>after</b> all the referenced modules are loaded and accounted for.
-        </p>
+<p><strong>Loading Method</strong>: Dynamically loaded (by default).</p>
 
-        <p>
-          The return value of <code>YUI().use()</code> is also a Y object, which
-          you can assign to a global variable [e.g.
-          <code class="nowrap">var Y = YUI().use(&hellip;);</code>] and debug
-          with it in a JavaScript console.
-        </p>
+<p><strong>Scope</strong>: The <code>YUI</code> loader object is global, and the <code>Y</code> object is local to each "sandbox" (your callback function). However, the return value of <code>YUI().use()</code> is a <code>Y</code> object, which you can assign to a global variable [e.g. <code class="nowrap">var Y = YUI().use(&hellip;);</code>].</p>
+
+<p><strong>Modules</strong>: Functionality in the YUI library is provided by "modules", which are split between <a href="http://yuilibrary.com/yui/docs/guides/">core</a> (officially supported) and <a href="http://yuilibrary.com/gallery/show">gallery</a> (user contributed). Simply adding <code>YUI().use(function(Y){});</code> doesn't get you much, so you will need to specify which modules you wish to use and the loader will fetch them for you.  The following core modules should provide you all the functionality for the examples in this document: </p>
+<pre>
+  YUI().use('node', 'io', 'event', 'animation', function (Y) {
+    // example code here
+  });
+</pre>
+
+<p>If any additional modules are needed, they'll be specified in the "notes" section to the example.</p>
       </td>
     </tr>
   </tbody>
@@ -281,45 +296,6 @@ Y.Lang.trim('<i> foo </i>')
 })
 </pre>
       </td>
-      <td class="code">
-<pre class="code yui">
-.on('click', <i>fn</i>)
-.on('focus', <i>fn</i>)
-.on('blur', <i>fn</i>)
-.on('mouseout', <i>fn</i>)
-.on('mouseover', <i>fn</i>)
-
-<i>// Alternatively, YUI allows you to attach multiple
-// subscribers with a single call.</i>
-.on({
-  click    : <i>fn</i>,
-  focus    : <i>fn</i>,
-  blur     : <i>fn</i>,
-  mouseout : <i>fn</i>,
-  mouseover: <i>fn</i>
-})
-
-<i>// Or attach a single subscriber to multiple events.</i>
-.on(['click', 'focus', 'blur', 'mouseout', 'mouseover'], <i>fn</i>)
-</pre>
-      </td>
-      <td class="notes">
-        <p><code>.on()</code> is not chainable by default, but multiple subscribers can be attached in one call using the syntax shown here.</p>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="code">
-        <pre class="code jq">$('#foo').trigger('click')</pre>
-      </td>
-      <td class="code">
-        <pre class="code yui">Y.one('#foo').simulate('click')</pre>
-      </td>
-      <td class="notes">
-        <p>Simulates a click event.  In YUI, you'll need the <i>node-event-simulate</i> module.<p>
-      </td>
-    </tr>
-
     <tr>
       <td class="code">
         <pre class="code jq"><i>parent</i>.append('&lt;div/&gt;')</pre>
@@ -360,9 +336,9 @@ $('&lt;p&gt;foo&lt;p&gt;')
       <td class="code">
 <pre class="code yui">
 <i>parent</i> = Y.Node.create('&lt;div/&gt;');
-Y.Node.create(&#x27;&lt;p&gt;foo&lt;/p&gt;&#x27;)
+Y.Node.create('&lt;p&gt;foo&lt;/p&gt;')
   .appendTo(<i>parent</i>)
-  .on(&#x27;click&#x27;, <i>fn</i>);
+  .on('click', <i>fn</i>);
 </pre>
       </td>
       <td class="notes">
@@ -647,6 +623,118 @@ Y.bind(<i>fn</i>, <i>context</i>)
 
   </tbody>
 </table>
+
+<h2 id="events">Events</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="jq">jQuery 1.4.2</th>
+      <th class="yui">YUI 3.5.0</th>
+      <th class="notes">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#foo').click(<i>fn</i>)
+$('#foo').focus(<i>fn</i>)
+$('#foo').blur(<i>fn</i>)
+$('#foo').mouseout(<i>fn</i>).mouseover(<i>fn</i>)
+
+<i>// jQuery 1.4.2 and later allows you to
+// register events when creating the element
+</i>$('&lt;p/&gt;',{
+  text      :<i>'foo'</i>, 
+  className : <i>'bar'</i>,
+  click     : <i>fn</i>,
+  focus     : <i>fn</i>,
+  blur      : <i>fn</i>
+})
+
+<i>//Alternatively, you can use the bind() method</i>
+$('#foo').bind('click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one('#foo').on('click', <i>fn</i>)
+Y.one('#foo').on('focus', <i>fn</i>)
+Y.one('#foo').on('blur', <i>fn</i>)
+Y.one('#foo').on('mouseout', <i>fn</i>)
+Y.one('#foo').on('mouseover', <i>fn</i>)
+
+<i>// Alternatively, YUI allows you to attach multiple
+// subscribers with a single call.</i>
+Y.one('#foo').on({
+  click    : <i>fn</i>,
+  focus    : <i>fn</i>,
+  blur     : <i>fn</i>,
+  mouseout : <i>fn</i>,
+  mouseover: <i>fn</i>
+})
+
+<i>// Or attach a single subscriber to multiple events.</i>
+Y.one("#foo").on(['click', 'focus', 'blur'], <i>fn</i>)
+</pre>
+      </td>
+      <td class="notes">
+        <p>In YUI, <code>.on()</code> is not chainable by default, but multiple subscribers can be attached in one call using the syntax shown here.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#container').delegate('#target', 'click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one('#container').delegate('click', <i>fn</i>, '#target');
+</pre>
+      </td>
+      <td class="notes">
+        <p>Event listener will bind to #container and only fire the callback <i>fn</i> when a event's target is #target (or any other selector)</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#target').live('click', <i>fn</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one(Y.config.doc).delegate('click', <i>fn</i>, '#target');
+</pre>
+      </td>
+      <td class="notes">
+        <p>jQuery's delegate() is generally preferred over live() because of performance as well as chaining limitations (<a href="http://www.alfajango.com/blog/the-difference-between-jquerys-bind-live-and-delegate/">source</a>).</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$('#foo').trigger('click');
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+Y.one('#foo').simulate('click');
+</pre>
+      </td>
+      <td class="notes">
+        <p>Simulates a <em>click</em> event. In YUI, you'll need the <code>node-event-simulate</code> module.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 
 <h2 id="selectors">Selectors</h2>
 
@@ -976,7 +1064,7 @@ a.run();
       </td>
       <td class="notes">
         <p>The basic syntax and capabilities of both animation libraries are very similar. jQuery has convenience methods for effects like <code>.fadeIn()</code>, <code>.slideUp()</code>, etc. jQuery core has two easing functions: 'linear' and 'swing', but jQuery UI comes with <a href="http://jqueryui.com/demos/effect/">many more effects</a> as plugins.</p>
-        <p>YUI has several <a href="http://developer.yahoo.com/yui/3/api/Easing.html">easing algorithms</a> built-in, and offers additional tools such as <a href="http://developer.yahoo.com/yui/3/examples/anim/curve.html">animations over Bezier curves</a>. Make sure to load the <code>'anim'</code> module in your call to <code>YUI().use()</code>.</p>
+        <p>YUI has several <a href="http://yuilibrary.com/yui/docs/api/classes/Easing.html">easing algorithms</a> built-in, and offers additional tools such as <a href="http://yuilibrary.com/yui/docs/anim/curve.html">animations over Bezier curves</a>. Requires the <code>anim</code> module.</p>
       </td>
     </tr>
 
@@ -1145,7 +1233,7 @@ Y.io(<i>url</i>, {
 </pre>
       </td>
       <td class="notes">
-        <p><a href="http://developer.yahoo.com/yui/3/io/">YUI.io</a> has extra options for failure mode callbacks, headers, cross-frame i/o, etc. <a href="http://api.jquery.com/jQuery.ajax/">jQuery.ajax()</a> has some interesting options for async, context, and filtering. Make sure to load the YUI <code>'io'</code> module.</p>
+        <p><a href="http://yuilibrary.com/yui/docs/io/">YUI.io</a> has extra options for failure mode callbacks, headers, cross-frame i/o, etc. <a href="http://api.jquery.com/jQuery.ajax/">jQuery.ajax()</a> has some interesting options for async, context, and filtering. Make sure to load the YUI <code>io</code> module.</p>
       </td>
     </tr>
 
@@ -1177,6 +1265,47 @@ Y.one('<i>#message</i>').load('<i>/ajax/test.html</i>', '<i>#foo</i>');
         <p>Load the content of a given URL and replace the contents of <code>#message</code> with it.</p>
 
         <p>In YUI, the <code>node-load</code> module provides this functionality. YUI also optionally supports extracting only a portion of the loaded content if a selector string is passed as the second argument (assuming the content is HTML).
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.getJSON(<i>url</i>, <i>successFn</i>);  
+</pre>
+</td>
+      <td class="code">
+<pre class="code yui">
+Y.io(<i>url</i>, {
+    on:   {success: <i>successFn</i>}
+});
+</pre>
+      </td>
+      <td class="notes">
+        <p>A remote request for a JSON file. Same-origin policy is enforced.</p>
+        <p>There is no convenience method for this in YUI.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
+$.getJSON(
+  "/some/jsonpURL.json?callback=?", 
+  <i>successFn</i>
+);
+</pre>
+</td>
+      <td class="code">
+<pre class="code yui">
+Y.jsonp(
+  "/some/jsonpURL.json?callback={callback}", 
+  <i>successFn</i>
+);
+</pre>
+      </td>
+      <td class="notes">
+        <p>JSONP requests. Same-origin policy is not enforced.  Requires the <code>jsonp</code> module.</p>
       </td>
     </tr>
   </tbody>

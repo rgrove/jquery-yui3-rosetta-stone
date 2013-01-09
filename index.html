@@ -37,8 +37,8 @@
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
     </tr>
   </thead>
 
@@ -46,7 +46,7 @@
     <tr>
       <td class="code">
 <pre class="code jq">
-&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="https://somedomain.com/path/to/plugin.js"&gt;&lt;/script&gt;
 &lt;script src="https://somedomain.com/path/to/anotherplugin.js"&gt;&lt;/script&gt;
 
@@ -63,7 +63,7 @@
       </td>
       <td class="code">
 <pre class="code yui">
-&lt;script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"&gt;&lt;/script&gt;
+&lt;script src="http://yui.yahooapis.com/3.8.0/build/yui/yui-min.js"&gt;&lt;/script&gt;
 
 
 
@@ -97,8 +97,8 @@
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -382,11 +382,11 @@ Y.one('#container').removeChild(Y.one('#foo'))
         <pre class="code jq">.empty()</pre>
       </td>
       <td class="code">
-        <pre class="code yui">.empty(<i>true</i>)</pre>
+        <pre class="code yui">.empty()</pre>
       </td>
       <td class="notes">
         <p>
-          jQuery's <code>.empty()</code> also deregisters any events associated with the elements being destroyed. Passing <code>true</code> to <code>.empty()</code> enables the same behavior in YUI.
+          Removes and destroys all of the nodes within the given node and also deregisters any events associated with the elements being destroyed.
         <p>
 
         <p>
@@ -628,8 +628,8 @@ Y.bind(<i>fn</i>, <i>context</i>)
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -741,8 +741,8 @@ Y.one('#foo').simulate('click');
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -867,7 +867,7 @@ Y.all('div').odd()
 <pre class="code jq">
 $('div:gt(<i>n</i>)');
 $('div:lt(<i>n</i>)');
-<i>// or</i>
+<i>// Or</i>
 $('div').slice(<i>n + 1</i>);
 $('div').slice(0,<i>n</i>);
 </pre>
@@ -1022,8 +1022,8 @@ if (len) {
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -1056,15 +1056,29 @@ var a = new Y.Anim(
         opacity: <i>0.5</i>
     },
     duration: <i>0.6</i>,
-    easing:   Y.Easing.bounceOut
+    easing: Y.Easing.bounceOut
   }
 );
 a.run();
+
+<i>// Or use transition</i>
+
+Y.one('<i>#foo</i>').transition(
+  {
+    width:   <i>100</i>,
+    height:  <i>100</i>,
+    opacity: <i>0.5</i>
+    duration: <i>0.6</i>,
+    easing: 'ease-out'
+  }
+);
+
 </pre>
       </td>
       <td class="notes">
         <p>The basic syntax and capabilities of both animation libraries are very similar. jQuery has convenience methods for effects like <code>.fadeIn()</code>, <code>.slideUp()</code>, etc. jQuery core has two easing functions: 'linear' and 'swing', but jQuery UI comes with <a href="http://jqueryui.com/demos/effect/">many more effects</a> as plugins.</p>
         <p>YUI has several <a href="http://yuilibrary.com/yui/docs/api/classes/Easing.html">easing algorithms</a> built-in, and offers additional tools such as <a href="http://yuilibrary.com/yui/docs/anim/curve.html">animations over Bezier curves</a>. Requires the <code>anim</code> module.</p>
+        <p>You can also use YUI's <code>transition</code> module for simple transitions.</p>
       </td>
     </tr>
 
@@ -1073,7 +1087,7 @@ a.run();
 <pre class="code jq">
 $('#.foo').fadeOut();
 
-<i>// or</i>
+<i>// Or</i>
 
 $('#.foo').hide(600);
 </pre></td>
@@ -1097,8 +1111,8 @@ Y.one('#foo').hide(<i>true</i>)
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -1207,8 +1221,8 @@ mapped = Y.all(mapped);
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -1316,8 +1330,8 @@ Y.jsonp(
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -1468,7 +1482,7 @@ Y.jsonp(
   <thead>
     <tr>
       <th class="jq">jQuery 1.4.3</th>
-      <th class="yui">YUI 3.5.0</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>
@@ -1487,7 +1501,7 @@ Y.Object.each({ key: value }, <i>fn(value, key)</i>)
 </pre></td>
       <td class="notes">
         <p>
-        	Iterate through an array or object. YUI is compatible with the Array <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> method so the first parameter the callback receives when iterating through an array is the value. In jQuery, the first parameter is the index of the value in the array.
+          Iterate through an array or object. YUI is compatible with the Array <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> method so the first parameter the callback receives when iterating through an array is the value. In jQuery, the first parameter is the index of the value in the array.
         </p>
       </td>
     </tr>
@@ -1497,7 +1511,7 @@ Y.Object.each({ key: value }, <i>fn(value, key)</i>)
       <td class="code"><pre class="code yui">Y.Array.indexOf(<i>array</i>, <i>value</i>)</pre></td>
       <td class="notes">
         <p>
-        	Returns the index of the searched value in the specified array.
+          Returns the index of the searched value in the specified array.
         </p>
       </td>
     </tr>
@@ -1507,7 +1521,7 @@ Y.Object.each({ key: value }, <i>fn(value, key)</i>)
       <td class="code"><pre class="code yui">Y.Lang.type(<i>obj</i>)</pre></td>
       <td class="notes">
         <p>
-        	Returns a string representing the type of the specified object. YUI and jQuery results are compatible (see <a href="http://api.jquery.com/jQuery.type/">jQuery's</a>).
+          Returns a string representing the type of the specified object. YUI and jQuery results are compatible (see <a href="http://api.jquery.com/jQuery.type/">jQuery's</a>).
         </p>
       </td>
     </tr>
@@ -1521,7 +1535,7 @@ Y.Lang.isObject(<i>obj</i>, <i>true</i>)
 </pre></td>
       <td class="notes">
         <p>
-        	In YUI, <code>Y.Lang.isObject</code> returns true for arrays and functions. Passing true as a second parameter makes it return false if the input is a function.
+          In YUI, <code>Y.Lang.isObject</code> returns true for arrays and functions. Passing true as a second parameter makes it return false if the input is a function.
         </p>
       </td>
     </tr>
@@ -1548,7 +1562,7 @@ Y.Lang.isValue(<i>obj</i>)
       </td>
       <td class="notes">
         <p>
-        	YUI also has some extra type checking functions. In particular, <code>Y.Lang.isValue()</code> returns false if the object is null, undefined or not a number, and true in any other case.
+          YUI also has some extra type checking functions. In particular, <code>Y.Lang.isValue()</code> returns false if the object is null, undefined or not a number, and true in any other case.
         </p>
       </td>
     </tr>
@@ -1558,7 +1572,7 @@ Y.Lang.isValue(<i>obj</i>)
       <td class="code"><pre class="code yui">Y.Object.isEmpty(<i>obj</i>)</pre></td>
       <td class="notes">
         <p>
-        	Check if the given object doesn't have any properties.
+          Check if the given object doesn't have any properties.
         </p>
       </td>
     </tr>
@@ -1568,7 +1582,7 @@ Y.Lang.isValue(<i>obj</i>)
       <td class="code"><pre class="code yui">Y.Array(<i>obj</i>)</pre></td>
       <td class="notes">
         <p>
-        	Make an array-like object, for instance the return value of <code>document.getElementsByTagName</code>, into a true array.
+          Make an array-like object, for instance the return value of <code>document.getElementsByTagName</code>, into a true array.
         </p>
       </td>
     </tr>
@@ -1578,7 +1592,7 @@ Y.Lang.isValue(<i>obj</i>)
       <td class="code"><pre class="code yui">Y.Lang.now()</pre></td>
       <td class="notes">
         <p>
-        	Return the current time in milliseconds.
+          Return the current time in milliseconds.
         </p>
       </td>
     </tr>
@@ -1592,8 +1606,8 @@ Y.Lang.isValue(<i>obj</i>)
 <table>
   <thead>
     <tr>
-      <th class="jq">jQuery 1.4.2</th>
-      <th class="yui">YUI 3.4.1</th>
+      <th class="jq">jQuery 1.8.3</th>
+      <th class="yui">YUI 3.8.0</th>
       <th class="notes">Notes</th>
     </tr>
   </thead>

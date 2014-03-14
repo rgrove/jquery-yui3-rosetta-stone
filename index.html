@@ -691,8 +691,8 @@ Y.one(Y.config.doc).delegate('click', <i>fn</i>, '#target');
 </pre>
       </td>
       <td class="notes">
-        <p>jQuery's delegate() is generally preferred over on() because of performance as well as chaining limitations (<a href="http://www.alfajango.com/blog/the-difference-between-jquerys-bind-live-and-delegate/">source</a>).</p>
-        <p><code>.live()</code> was deprecated in jQuery 1.7, and removed in jQuery 1.9 in favour of <code>.on()</code></p>
+        <p>jQuery's delegate() is generally preferred over bind() because of performance as well as chaining limitations (<a href="http://www.alfajango.com/blog/the-difference-between-jquerys-bind-live-and-delegate/">source</a>).</p>
+        <p><code>.live()</code> was deprecated in jQuery 1.7, and removed in jQuery 1.9 in favour of <code>.on()</code>. As of jQuery 1.7, <code>.on()</code> is the actual method that bind(), live(), and delegate() passes through. (<a href="http://www.elijahmanor.com/differences-between-jquery-bind-vs-live-vs-delegate-vs-on/">source</a>)</p>
       </td>
     </tr>
 

@@ -329,6 +329,23 @@ Y.Node.create('&lt;p&gt;foo&lt;/p&gt;')
     <tr>
       <td class="code">
 <pre class="code jq">
+.after(<i>content</i>);
+</pre>
+      </td>
+      <td class="code">
+<pre class="code yui">
+.insert(<i>content</i>, 'after');
+</pre>
+      </td>
+      <td class="notes">
+        Insert <code>content</code> after the specified node.
+      </td>
+    </tr>
+
+
+    <tr>
+      <td class="code">
+<pre class="code jq">
 <i>// Removes #foo from its parent and
 // detaches events and jQuery data.</i>
 $('#foo').remove()
